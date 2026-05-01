@@ -1,1 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Moodify.ai 🎵 - 🎧 Personalized Playlists for Every Mood 💙</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?fit=crop&w=1920&h=1080&q=80') no-repeat center center/cover;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 { color: #FFD700; font-size: 2.5em; }
+        h2 { color: #FFEC8B; font-size: 2em; }
+        input, button { padding: 12px; margin: 10px; font-size: 1.2em; border-radius: 5px; border: none; }
+        input { background-color: rgba(255, 255, 255, 0.9); color: #000; }
+        button { background-color: #3498DB; color: white; cursor: pointer; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); }
+        button:hover { background-color: #2980B9; }
+        #loading { display: none; color: #FF4500; font-weight: bold; }
+        #result a { color: #FFD700; font-weight: bold; text-decoration: none; }
+        .login-container {
+            background: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?fit=crop&w=1920&h=1080&q=80') no-repeat center center/cover;
+            padding: 50px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            width: 100vw;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+    </style>
+</head>
+<body>
+    {% if login_required %}
+        <div class="login-container">
+            <h1>✨ Moodify.ai 🎵</h1>
+            <h2>🎧 Login to Continue</h2>
+            <a href="{{ url_for('login') }}"><button>Login with Spotify</button></a>
+        </div>
+    {% else %}
+        <h1>✨ Moodify.ai 🎵</h1>
+        <h2>🎧 Personalized Playlists for Every Mood 💙</h2>
+        <h2>Enter your mood or speak it!</h2>
+        <input type="text" id="textInput" placeholder="Enter mood...">
+        <button onclick="getRecommendation()">Get Playlist</button>
+
+        <h2>Or use voice input:</h2>
+        <button onclick="recordVoice()">🎤 Record Voice</button>
+        <p id="voice-status"></p>
+        <p id="loading">Processing... Please wait.</p>
+        <div id="result"></div>
+
+        <a href="{{ url_for('logout') }}">
+            <button style="background-color: red; color: white; padding: 10px; border-radius: 5px;">Logout</button>
+        </a>
+    {% endif %}
+
+    <script>
+        async function getRecommendation() {
+            const text = document.getElementById("textInput").value;
+            if (!text) return alert("Enter text or use voice input.");
+
+            document.getElementById("loading").style.display = "block";
+
+            const response = await fetch('/recommend', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: text })
+            });
+
+            const data = await response.json();
+            document.getElementById("loading").style.display = "none";
+
+            document.getElementById("result").innerHTML = data.playlist ?
+                `Mood: ${data.mood} <br> <a href="${data.playlist}" target="_blank">🎵 Listen Here</a>` :
+                (data.message || data.error || "Something went wrong. Please try again.");
+        }
+
+        function recordVoice() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            if (!SpeechRecognition) {
+                document.getElementById("voice-status").innerText = "Voice input is not supported in this browser.";
+                return;
+            }
+
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.start();
+
+            document.getElementById("voice-status").innerText = "Listening...";
+            recognition.onresult = function(event) {
+                document.getElementById("textInput").value = event.results[0][0].transcript;
+                document.getElementById("voice-status").innerText = "Voice recorded!";
+            };
+            recognition.onerror = function() {
+                document.getElementById("voice-status").innerText = "Error recording voice. Try again!";
+            };
+        }
+    </script>
+</body>
+</html>
 
