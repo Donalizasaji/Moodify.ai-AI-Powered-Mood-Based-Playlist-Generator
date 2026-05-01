@@ -119,7 +119,7 @@ Open in browser:
 
 ## 🔐 Security Note
 
-* `.env` file is excluded using `.gitignore`
+* `.env` file is excluded 
 * API keys are not exposed in the repository
 
 ---
