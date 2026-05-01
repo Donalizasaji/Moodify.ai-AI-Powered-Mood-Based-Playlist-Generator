@@ -113,7 +113,7 @@ Open in browser:
 * Sad 😢
 * Angry 😡
 * Calm 😌
-* Suprised 😐
+* Surprised😐
 
 ---
 
