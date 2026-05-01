@@ -34,7 +34,6 @@ Moodify-ai/
 │
 ├── app.py
 ├── requirements.txt
-├── README.md
 ├── .gitignore
 ├── .env.example
 │
