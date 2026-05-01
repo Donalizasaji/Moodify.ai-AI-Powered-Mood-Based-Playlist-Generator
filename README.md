@@ -49,8 +49,8 @@ Moodify-ai/
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/Donalizasaji/Moodify-ai.git
-cd Moodify-ai
+git clone https://github.com/Donalizasaji/Moodify.ai-AI-Powered-Mood-Based-Playlist-Generator.git
+cd Moodify.ai-AI-Powered-Mood-Based-Playlist-Generator
 ```
 
 ---
