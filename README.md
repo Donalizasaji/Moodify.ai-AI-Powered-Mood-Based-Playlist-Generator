@@ -3,6 +3,10 @@
 Moodify.ai is an intelligent web application that generates personalized Spotify playlists based on your mood. It uses Natural Language Processing (NLP) and deep learning to analyze emotions from text or voice input and curates songs from your liked tracks accordingly.
 
 ---
+## 🎥 Demo Video
+
+[![Watch the demo](https://youtu.be/XXpZZ114xxM)
+
 
 ## 🚀 Features
 
