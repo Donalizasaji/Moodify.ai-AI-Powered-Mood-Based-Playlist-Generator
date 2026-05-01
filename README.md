@@ -144,7 +144,7 @@ Contributions are welcome! Feel free to fork the repo and submit a pull request.
 
 This project is licensed under the MIT License.
 
----
-**Dona Liza Saji**  
-AI/ML Enthusiast | Data Analyst | Aspiring AI Engineer
----
+## 👩‍💻 Author
+
+
+**Dona Liza Saji** AI/ML Enthusiast | Data Analyst | Aspiring AI Engineer
